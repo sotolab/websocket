@@ -1,0 +1,73 @@
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="js/contracts.js"></script>
+	<script>
+	// first we'll require web3
+	//var Web3 = require('web3');
+	//npm install --save web3@1.0.0-beta.26
+
+
+	// next we'll create a new instance of web3.
+	//var web3 = new Web3();
+
+	// Set the provider
+	//web3.setProvider(new Web3.providers.WebsocketProvider('ws://localhost:8546'));
+	
+	const provider = new Web3.providers.WebsocketProvider('ws://localhost:3010');
+    const web3 = new Web3(provider)
+	
+	var version = web3.version;
+     console.log("version : ", version); 
+	 
+	var list = web3.eth.getAccounts();
+	console.log("list : ", list); 
+	
+	checkBalance();
+	
+	  
+
+function checkBalance() {
+  web3.eth.personal.getAccounts().then(accounts => {
+    console.log('accounts', accounts);
+
+    web3.eth.getBalance(accounts[0]).then(balance => {
+      console.log('balance[0]', balance);
+    });
+  });
+  }
+	</script>
+</head>
+
+<body>
+    <div class="container" style="margin-top: 20px; margin-bottom: 20px;">
+        <div class="justify-content-md-center row">
+            <div class="col-md-10">
+                <form class="">
+                    <div class="mb-3 input-group">
+                        <div class="input-group-prepend"><span id="inputGroup-sizing-default" class="input-group-text">Search</span></div><input
+                            aria-label="Default" aria-describedby="inputGroup-sizing-default" class="form-control" id="search">
+                    </div>
+                    <div class="form-group col"><label for="formGridState" class="form-label">Solidity Example Code</label><select
+                            id="formGridState" class="form-control">
+                            <option value="">select subject</option>
+                        </select></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

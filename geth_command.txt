@@ -1,0 +1,38 @@
+// Created by Soto
+// 2019.02.28
+ 
+$ geth --datadir "sotolab" --nodiscover --rpc --rpcapi "db,personal,eth,net,web3,debug" --rpccorsdomain='*' --rpcaddr= "localhost" --rpcport 8545 --ws --wsport 3010 --wsaddr "localhost" --wsorigins "*" --wsapi "admin,db,eth ,miner,personal,web3,net,txpool" console
+
+$ geth --datadir "sotolab" --nodiscover --ws --wsport 3010 --wsaddr "localhost" --wsorigins "*" --wsapi "admin,db,eth, miner,personal,web3,net,txpool" console
+
+<script>
+// first we'll require web3
+//var Web3 = require('web3');
+//npm install --save web3@1.0.0-beta.26
+
+// next we'll create a new instance of web3.
+//var web3 = new Web3();
+
+// Set the provider
+const provider = new Web3.providers.WebsocketProvider('ws://localhost:3010');
+const web3 = new Web3(provider)
+	
+var version = web3.version;
+console.log("version : ", version); 
+	 
+var list = web3.eth.getAccounts();
+console.log("list : ", list); 
+	
+checkBalance();
+		  
+function checkBalance() {
+  web3.eth.personal.getAccounts().then(accounts => {
+    console.log('accounts', accounts);
+
+    web3.eth.getBalance(accounts[0]).then(balance => {
+      console.log('balance[0]', balance);
+    });
+  });
+  }
+
+</script>
